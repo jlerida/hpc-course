@@ -464,8 +464,8 @@ int main(int argc, char **argv)
     fclose(fpsrc);
     fclose(fpdst);
     
-    freeImagestructure(&source);
-    freeImagestructure(&output);
+//    freeImagestructure(&source);
+//    freeImagestructure(&output);
     
     gettimeofday(&tim, NULL);
     tend = tim.tv_sec+(tim.tv_usec/1000000.0);
@@ -481,5 +481,9 @@ int main(int argc, char **argv)
     printf("%.6lf seconds elapsed for make the convolution.\n", tconv);
     printf("%.6lf seconds elapsed for writing the resulting image.\n", tstore);
     printf("%.6lf seconds elapsed\n", tend-tstart);
+    
+    freeImagestructure(&source);
+    freeImagestructure(&output);    
+    
     return 0;
 }
