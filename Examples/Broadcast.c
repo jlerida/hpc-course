@@ -12,10 +12,10 @@ int main(int argc, char *argv[]){
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	srand(time(NULL)*rank);
     
-    if(rank==5) param = 23;
+	if(rank==5) param = 23;
 
-    MPI_Bcast(&param,1,MPI_INT,5,MPI_COMM_WORLD);
-    printf("\nProcess %d received by broadcast value %d",rank,param);
+   	MPI_Bcast(&param,1,MPI_INT,5,MPI_COMM_WORLD);
+    	printf("\nProcess %d received by broadcast value %d",rank,param);
     
 	MPI_Finalize();
 } 
