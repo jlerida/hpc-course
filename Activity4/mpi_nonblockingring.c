@@ -60,7 +60,6 @@ int main (int argc, char *argv[])
         MPI_Recv (inmsg, size, MPI_DOUBLE, source, tag, MPI_COMM_WORLD,&status);
         acum = acum + inmsg[0];
         if (rank==0) printf("Rank %d received data (%g) from rank %d (acum=%g)\n",rank,outmsg[0],source,acum);
-        printf("Rank %d received data (%g) from rank %d (acum=%g)\n",rank,inmsg[0],source,acum);
         MPI_Wait(&send_request, &status2);
         //Copy the inmsg to outmsg for the next iteration.
         for (j = 0; j < size; j++) outmsg[j] = inmsg[j];
