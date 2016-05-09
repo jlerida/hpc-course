@@ -36,14 +36,14 @@ int main(int argc, char **argv ){
 
    
     if (rank == 0){
-        data.data1=25.30;
+        	data.data1=25.30;
 		data.data2=7;
 		data.data3="String 10!";
 		int i;
 		for(i=1;i<nprocs;i++){
 	  		MPI_Send(&data, 1, dataStruct,i, 0, MPI_COMM_WORLD );
 		}
-	}else{
+	} else {
 		MPI_Status status;
 		MPI_Recv(&data,1,dataStruct,0,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
 	}
