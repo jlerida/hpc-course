@@ -4,7 +4,7 @@
 int main(int argc, char **argv ){
 	int rank,nprocs;
 	struct {float data1; int data2;char* data3;} data;
-	MPI_Datatype dataStruct;
+	MPI_Datatype mydataStruct;
 	int blocks[3];
 	MPI_Aint indices[3];
 	MPI_Datatype MPItypes[3];
@@ -31,27 +31,27 @@ int main(int argc, char **argv ){
 	indices[0] = indices[0] - baseaddres;
 	indices[1] = indices[1] - baseaddres;
 	indices[3] = indices[3] - baseaddres;
-	MPI_Type_create_struct( 3, blocks, indices, MPItypes, &dataStruct );
-	MPI_Type_commit( &dataStruct );
+	MPI_Type_create_struct( 3, blocks, indices, MPItypes, &mydataStruct );
+	MPI_Type_commit( &mydataStruct );
 
    
     if (rank == 0){
-        	data.data1=25.30;
+        data.data1=25.30;
 		data.data2=7;
 		data.data3="String 10!";
 		int i;
 		for(i=1;i<nprocs;i++){
-	  		MPI_Send(&data, 1, dataStruct,i, 0, MPI_COMM_WORLD );
+	  		MPI_Send(&data, 1, mydataStruct,i, 0, MPI_COMM_WORLD );
 		}
 	} else {
 		MPI_Status status;
-		MPI_Recv(&data,1,dataStruct,0,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
+		MPI_Recv(&data,1,mydataStruct,0,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
 	}
         
 	printf( "Process %d got %f, %d and %s\n", rank, data.data1, data.data2,data.data3 );
    
     /* Clean up the type */
-    MPI_Type_free( &dataStruct );
+    MPI_Type_free( &mydataStruct );
     MPI_Finalize( );
     return 0;
 }
